@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 #Starter Kit for [Building Applications in React and Redux in ES6](http://www.pluralsight.com/author/cory-house) on Pluralsight
 
 ## Get Started
@@ -76,3 +77,10 @@ This will run the automated build process, start up a webserver, and open the ap
 |webpack| Bundler with plugin system and integrated development server |
 |webpack-dev-middleware| Adds middleware support to webpack |
 |webpack-hot-middleware| Adds hot reloading to webpack |
+=======
+# React-and-Redux-in-ES6
+
+
+Redux starter kit
+https://github.com/coryhouse/pluralsight-redux-starter.git
+>>>>>>> 3dd6a99d02e901780c5029098f0b90dec9974b53
