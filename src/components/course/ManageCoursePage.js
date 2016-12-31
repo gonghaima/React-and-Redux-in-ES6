@@ -10,7 +10,7 @@ class ManageCoursePage extends React.Component {
         this.state = {
             course: Object.assign({}, this.props.course),
             errors: {}
-        }
+        };
     }
     render() {
         return (
@@ -28,19 +28,19 @@ class ManageCoursePage extends React.Component {
 
 ManageCoursePage.PropTypes = {
     course: PropTypes.object.isRequired
-}
+};
 
 function mapStateToProps(state, ownProps) {
     let course = { id: '', watchHref: '', title: '', authorId: '', length: '', category: '' };
     return {
         course: course
-    }
+    };
 }
 
 function mapDispatchToProps(dispatch) {
     return {
         actions: bindActionCreators(courseActions, dispatch)
-    }
+    };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(ManageCoursePage)
+export default connect(mapStateToProps, mapDispatchToProps)(ManageCoursePage);
