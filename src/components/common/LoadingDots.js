@@ -24,7 +24,7 @@ class LoadingDots extends Component {
         while (dots > 0) {
             text += '.';
             dots--;
-        };
+        }
         return <span {...this.props}>{text}&nbsp;</span>;
     }
 }

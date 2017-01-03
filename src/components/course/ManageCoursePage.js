@@ -4,7 +4,7 @@ import { bindActionCreators } from 'redux';
 import * as courseActions from '../../actions/courseActions';
 import CourseForm from './CourseForm';
 
-class ManageCoursePage extends React.Component {
+export class ManageCoursePage extends React.Component {
     constructor(props, context) {
         super(props, context);
         
@@ -18,7 +18,6 @@ class ManageCoursePage extends React.Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        debugger;
         if(this.props.course.id!=nextProps.course.id){
             //Necessary to populate form when existing course is loaded directly.
             this.setState({course:Object.assign({}, nextProps.course)});
@@ -54,7 +53,7 @@ class ManageCoursePage extends React.Component {
 }
 
 ManageCoursePage.propTypes = {
-    // course: PropTypes.object.isRequired,
+    course: PropTypes.object.isRequired,
     authors: PropTypes.array.isRequired,
     actions: PropTypes.object.isRequired
 };
@@ -62,7 +61,7 @@ ManageCoursePage.propTypes = {
 //Pull in the React Router context so router is available on this.context.router.
 ManageCoursePage.contextTypes={
     router: PropTypes.object
-}
+};
 
 function getCourseById(courses, id){
     const course=courses.filter(course=>course.id==id);
