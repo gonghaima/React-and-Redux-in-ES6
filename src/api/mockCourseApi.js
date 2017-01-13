@@ -86,7 +86,7 @@ class CourseApi {
           courses.push(course);
         }
 
-        resolve(courses);
+        resolve(course);
       }, delay);
     });
   }
