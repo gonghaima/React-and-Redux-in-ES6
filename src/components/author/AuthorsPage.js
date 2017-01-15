@@ -22,7 +22,7 @@ class AuthorsPage extends Component {
                 </thead>
                 <tbody>
                     {authors.map(author =>
-                        <tr>
+                        <tr key={author.id}>
                             <td><Link to={'/author/' + author.id}>{author.id}</Link></td>
                             <td>{author.firstName}</td>
                             <td>{author.lastName}</td>
@@ -36,7 +36,7 @@ class AuthorsPage extends Component {
 
 AuthorsPage.propTypes = {
     // authors: React.PropTypes.array.isRequired,
-    actions: React.PropTypes.object.isRequired
+    // actions: React.PropTypes.object.isRequired
 };
 
 function mapStateToProps(state, ownProps) {

@@ -16,3 +16,17 @@ export function loadAuthors(){
         });
     };
 }
+
+export function saveAuthor(author) {
+    return function (dispatch, getState) {
+        dispatch(beginAjaxCall());
+        return AuthorApi.saveAuthor(author).then(savedAuthor => {
+            author.id ?
+                dispatch(updateCourseSuccess(savedAuthor))
+                : dispatch(createCourseSuccess(savedAuthor));
+        }).catch(error => {
+            dispatch(ajaxCallError(error));
+            throw (error);
+        });
+    };
+}
