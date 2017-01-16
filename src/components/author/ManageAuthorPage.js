@@ -15,13 +15,22 @@ class ManageAuthorPage extends Component {
             errors: {},
             saving: false
         };
+
+        this.updateAuthorState = this.updateAuthorState.bind(this);
+    }
+
+    componentWillReceiveProps(nextProps) {
+        if (this.props.author.id != nextProps.author.id) {
+            //Necessary to populate form when existing course is loaded directly.
+            this.setState({ author: Object.assign({}, nextProps.author) });
+        }
     }
 
     updateAuthorState(event) {
-        // const field = event.target.name;
-        // let author = this.state.author;
-        // author[field] = event.target.value;
-        // return this.setState({ author: author });
+        const field = event.target.name;
+        let author = this.state.author;
+        author[field] = event.target.value;
+        return this.setState({ author: author });
     }
 
     AuthorFormIsValid() {
@@ -31,9 +40,9 @@ class ManageAuthorPage extends Component {
     saveAuthor(event) {
         event.preventDefault();
 
-        if (!this.AuthorFormIsValid()) {
-            return;
-        }
+        // if (!this.AuthorFormIsValid()) {
+        //     return;
+        // }
 
         this.setState({ saving: true });
         this.props.actions.saveAuthor(this.state.author)
@@ -53,7 +62,7 @@ class ManageAuthorPage extends Component {
     render() {
         return (
             <AuthorForm
-                author={this.props.author}
+                author={this.state.author}
                 onSave={this.saveAuthor}
                 onChange={this.updateAuthorState}
                 errors={this.state.errors}
