@@ -1,35 +1,45 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import {Link} from 'react-router';
+import { Link } from 'react-router';
 import { bindActionCreators } from 'redux';
 import * as authorActions from '../../actions/authorActions';
+import { browserHistory } from 'react-router';
 
 class AuthorsPage extends Component {
     constructor(props, context) {
         super(props, context);
     }
-
+    redirectToAddAuthorPage() {
+        browserHistory.push('/author');
+    }
     render() {
         const {authors} = this.props;
         return (
-            <table className="table">
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>First Name</th>
-                        <th>Last Name</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {authors.map(author =>
-                        <tr key={author.id}>
-                            <td><Link to={'/author/' + author.id}>{author.id}</Link></td>
-                            <td>{author.firstName}</td>
-                            <td>{author.lastName}</td>
+            <div>
+                <h1>Authors</h1>
+                <input type="submit"
+                    value="Add Author"
+                    className="btn btn-primary"
+                    onClick={this.redirectToAddAuthorPage} />
+                <table className="table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>First Name</th>
+                            <th>Last Name</th>
                         </tr>
-                    )}
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                        {authors.map(author =>
+                            <tr key={author.id}>
+                                <td><Link to={'/author/' + author.id}>{author.id}</Link></td>
+                                <td>{author.firstName}</td>
+                                <td>{author.lastName}</td>
+                            </tr>
+                        )}
+                    </tbody>
+                </table>
+            </div>
         );
     }
 }
