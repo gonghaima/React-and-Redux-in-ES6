@@ -17,6 +17,7 @@ class ManageAuthorPage extends Component {
         };
 
         this.updateAuthorState = this.updateAuthorState.bind(this);
+        this.saveAuthor = this.saveAuthor.bind(this);
     }
 
     componentWillReceiveProps(nextProps) {
@@ -75,6 +76,11 @@ class ManageAuthorPage extends Component {
 ManageAuthorPage.propTypes = {
     author: PropTypes.object.isRequired,
     actions: PropTypes.object.isRequired
+};
+
+//Pull in the React Router context so router is available on this.context.router.
+ManageAuthorPage.contextTypes = {
+    router: PropTypes.object
 };
 
 function getAuthorById(authors, id) {

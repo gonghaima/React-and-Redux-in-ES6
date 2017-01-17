@@ -35,8 +35,8 @@ class AuthorsPage extends Component {
 }
 
 AuthorsPage.propTypes = {
-    // authors: React.PropTypes.array.isRequired,
     // actions: React.PropTypes.object.isRequired
+    authors: React.PropTypes.array.isRequired
 };
 
 function mapStateToProps(state, ownProps) {

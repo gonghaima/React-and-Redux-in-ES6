@@ -1,9 +1,17 @@
 import AuthorApi from '../api/mockAuthorApi';
 import * as types from './actionTypes';
-import {beginAjaxCall} from './ajaxStatusActions';
+import {beginAjaxCall, ajaxCallError} from './ajaxStatusActions';
 
 export function loadAuthorsSuccess(authors){
     return {type: types.LOAD_AUTHORS_SUCCESS, authors};
+}
+
+export function createAuthorSuccess(author) {
+    return { type: types.CREATE_AUTHOR_SUCCESS, author };
+}
+
+export function updateAuthorSuccess(author) {
+    return { type: types.UPDATE_AUTHOR_SUCCESS, author };
 }
 
 export function loadAuthors(){
@@ -22,8 +30,8 @@ export function saveAuthor(author) {
         dispatch(beginAjaxCall());
         return AuthorApi.saveAuthor(author).then(savedAuthor => {
             author.id ?
-                dispatch(updateCourseSuccess(savedAuthor))
-                : dispatch(createCourseSuccess(savedAuthor));
+                dispatch(updateAuthorSuccess(savedAuthor))
+                : dispatch(createAuthorSuccess(savedAuthor));
         }).catch(error => {
             dispatch(ajaxCallError(error));
             throw (error);
