@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router';
+import { Link, browserHistory} from 'react-router';
 import { bindActionCreators } from 'redux';
 import * as authorActions from '../../actions/authorActions';
-import { browserHistory } from 'react-router';
 
 class AuthorsPage extends Component {
     constructor(props, context) {
