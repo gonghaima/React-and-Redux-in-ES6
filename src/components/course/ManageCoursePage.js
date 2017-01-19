@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as courseActions from '../../actions/courseActions';
 import CourseForm from './CourseForm';
-import {authorsFormattedForDropdown} from '../../selectors/selectors';
+import { authorsFormattedForDropdown } from '../../selectors/selectors';
 import toastr from 'toastr';
 
 export class ManageCoursePage extends React.Component {
@@ -18,10 +18,15 @@ export class ManageCoursePage extends React.Component {
 
         this.updateCourseState = this.updateCourseState.bind(this);
         this.saveCourse = this.saveCourse.bind(this);
+        this.deleteCourse = this.deleteCourse.bind(this);
     }
 
     componentWillReceiveProps(nextProps) {
-        if (this.props.course.id != nextProps.course.id) {
+        if (this.props.course
+            && this.props.course.id
+            && nextProps.course
+            && nextProps.course.id
+            && (this.props.course.id !== nextProps.course.id)) {
             //Necessary to populate form when existing course is loaded directly.
             this.setState({ course: Object.assign({}, nextProps.course) });
         }
@@ -63,6 +68,18 @@ export class ManageCoursePage extends React.Component {
             });
 
     }
+    deleteCourse(event) {
+        event.preventDefault();
+
+        this.setState({ saving: true });
+        this.props.actions.deleteCourse(this.state.course)
+            .then(() => this.redirect())
+            .catch(error => {
+                toastr.error(error);
+                this.setState({ saving: false });
+            });
+
+    }
 
     redirect() {
         this.setState({ saving: true });
@@ -76,6 +93,7 @@ export class ManageCoursePage extends React.Component {
                 allAuthors={this.props.authors}
                 onChange={this.updateCourseState}
                 onSave={this.saveCourse}
+                onDelete={this.deleteCourse}
                 course={this.state.course}
                 errors={this.state.errors}
                 saving={this.state.saving}
