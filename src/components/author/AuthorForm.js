@@ -1,7 +1,10 @@
 import React from 'react';
 import TextInput from '../common/TextInput';
 
-const AuthorForm = ({author, onSave, onDelete, onChange, errors, saving}) => {
+const AuthorForm = ({author, coursesTeaching, onSave, onDelete, onChange, errors, saving}) => {
+    console.log("numberOfCourses: " + coursesTeaching);
+    // let coursesForTeacher=[];
+    // let courseHtml=<p></p>
     return (
         <form>
             <h1>Manage Author</h1>
@@ -15,6 +18,8 @@ const AuthorForm = ({author, onSave, onDelete, onChange, errors, saving}) => {
                 label="Last Name"
                 value={author.lastName}
                 onChange={onChange} />
+            <h2>Course teaching</h2>
+            {coursesTeaching.map(cs => <p>{cs.id}</p>)}
             <input
                 type="submit"
                 disabled={saving}
@@ -23,7 +28,7 @@ const AuthorForm = ({author, onSave, onDelete, onChange, errors, saving}) => {
                 onClick={onSave} />
             <button
                 type="button"
-                disabled={saving}
+                disabled={saving || coursesTeaching.length>0}
                 className="btn btn-primary"
                 onClick={onDelete}>Delete</button>
         </form>
@@ -34,6 +39,7 @@ AuthorForm.propTypes = {
     onSave: React.PropTypes.func.isRequired,
     onDelete: React.PropTypes.func.isRequired,
     author: React.PropTypes.object.isRequired,
+    coursesTeaching: React.PropTypes.array.isRequired,
     onChange: React.PropTypes.func.isRequired,
     saving: React.PropTypes.bool,
     errors: React.PropTypes.object

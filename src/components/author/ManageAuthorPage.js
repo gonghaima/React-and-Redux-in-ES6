@@ -12,6 +12,8 @@ class ManageAuthorPage extends Component {
 
         this.state = {
             author: Object.assign({}, this.props.author),
+            authors: Object.assign({}, this.props.authors),
+            courses: Object.assign({}, this.props.courses),
             errors: {},
             saving: false
         };
@@ -67,10 +69,15 @@ class ManageAuthorPage extends Component {
         this.context.router.push('/authors');
     }
 
+
     render() {
+        var courseLocal = this.state.courses;
+        let arrayCourse = Object.keys(courseLocal).map((k) => courseLocal[k])
+        let cWithAuthors = arrayCourse.filter(c=>c.authorId===this.state.author.id);
         return (
-            <AuthorForm
+             <AuthorForm
                 author={this.state.author}
+                coursesTeaching={cWithAuthors}
                 onSave={this.saveAuthor}
                 onDelete={this.deleteAuthor}
                 onChange={this.updateAuthorState}
@@ -100,13 +107,14 @@ function getAuthorById(authors, id) {
 function mapStateToProps(state, ownProps) {
     const authorId = ownProps.params.id; // from the path `/author/:id`
     let author = { id: '', firstName: '', lastName: '' };
-    if (authorId && state.authors.length > 0 && state.authors.findIndex(c=>c.id===authorId)!==-1) {
+    if (authorId && state.authors.length > 0 && state.authors.findIndex(c => c.id === authorId) !== -1) {
         author = getAuthorById(state.authors, authorId);
     }
 
     return {
         author: author,
-        authors: state.authors
+        authors: state.authors,
+        courses: state.courses
     };
 }
 
