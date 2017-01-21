@@ -18,6 +18,7 @@ class ManageAuthorPage extends Component {
 
         this.updateAuthorState = this.updateAuthorState.bind(this);
         this.saveAuthor = this.saveAuthor.bind(this);
+        this.deleteAuthor = this.deleteAuthor.bind(this);
     }
 
     componentWillReceiveProps(nextProps) {
@@ -40,13 +41,19 @@ class ManageAuthorPage extends Component {
 
     saveAuthor(event) {
         event.preventDefault();
-
-        // if (!this.AuthorFormIsValid()) {
-        //     return;
-        // }
-
         this.setState({ saving: true });
         this.props.actions.saveAuthor(this.state.author)
+            .then(() => this.redirect())
+            .catch(error => {
+                toastr.error(error);
+                this.setState({ saving: false });
+            });
+    }
+
+    deleteAuthor(event) {
+        event.preventDefault();
+        this.setState({ saving: true });
+        this.props.actions.deleteAuthor(this.state.author)
             .then(() => this.redirect())
             .catch(error => {
                 toastr.error(error);
@@ -65,6 +72,7 @@ class ManageAuthorPage extends Component {
             <AuthorForm
                 author={this.state.author}
                 onSave={this.saveAuthor}
+                onDelete={this.deleteAuthor}
                 onChange={this.updateAuthorState}
                 errors={this.state.errors}
                 saving={this.state.saving}
@@ -92,7 +100,7 @@ function getAuthorById(authors, id) {
 function mapStateToProps(state, ownProps) {
     const authorId = ownProps.params.id; // from the path `/author/:id`
     let author = { id: '', firstName: '', lastName: '' };
-    if (authorId && state.authors.length > 0) {
+    if (authorId && state.authors.length > 0 && state.authors.findIndex(c=>c.id===authorId)!==-1) {
         author = getAuthorById(state.authors, authorId);
     }
 

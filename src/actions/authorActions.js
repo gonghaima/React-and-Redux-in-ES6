@@ -1,9 +1,9 @@
 import AuthorApi from '../api/mockAuthorApi';
 import * as types from './actionTypes';
-import {beginAjaxCall, ajaxCallError} from './ajaxStatusActions';
+import { beginAjaxCall, ajaxCallError } from './ajaxStatusActions';
 
-export function loadAuthorsSuccess(authors){
-    return {type: types.LOAD_AUTHORS_SUCCESS, authors};
+export function loadAuthorsSuccess(authors) {
+    return { type: types.LOAD_AUTHORS_SUCCESS, authors };
 }
 
 export function createAuthorSuccess(author) {
@@ -14,13 +14,17 @@ export function updateAuthorSuccess(author) {
     return { type: types.UPDATE_AUTHOR_SUCCESS, author };
 }
 
-export function loadAuthors(){
-    return dispatch=>{
+export function deleteAuthorSuccess(author) {
+    return { type: types.DELETE_AUTHOR_SUCCESS, author };
+}
+
+export function loadAuthors() {
+    return dispatch => {
         dispatch(beginAjaxCall());
-        return AuthorApi.getAllAuthors().then(authors=>{
+        return AuthorApi.getAllAuthors().then(authors => {
             dispatch(loadAuthorsSuccess(authors));
-        }).catch(error=>{
-            throw(error);
+        }).catch(error => {
+            throw (error);
         });
     };
 }
@@ -32,6 +36,18 @@ export function saveAuthor(author) {
             author.id ?
                 dispatch(updateAuthorSuccess(savedAuthor))
                 : dispatch(createAuthorSuccess(savedAuthor));
+        }).catch(error => {
+            dispatch(ajaxCallError(error));
+            throw (error);
+        });
+    };
+}
+
+export function deleteAuthor(author) {
+    return function (dispatch, getState) {
+        dispatch(beginAjaxCall());
+        return AuthorApi.deleteAuthor(author).then(savedAuthor => {
+            dispatch(deleteAuthorSuccess(savedAuthor));
         }).catch(error => {
             dispatch(ajaxCallError(error));
             throw (error);
