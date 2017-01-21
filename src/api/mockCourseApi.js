@@ -96,7 +96,7 @@ class CourseApi {
       setTimeout(() => {
         const indexOfCourseToDelete = courses.findIndex(a => a.id == courseId);
         const deletedCourse=courses.splice(indexOfCourseToDelete, 1);
-        resolve(courseId);
+        resolve(deletedCourse[0]);
       }, delay);
     });
   }

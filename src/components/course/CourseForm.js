@@ -45,9 +45,8 @@ const CourseForm = ({course, allAuthors, onSave, onDelete, onChange, saving, err
             <button
                 type="button"
                 disabled={saving}
-                value={"Delete"}
                 className="btn btn-primary"
-                onClick={onDelete} />
+                onClick={onDelete}>Delete</button>
         </form>
     );
 };
