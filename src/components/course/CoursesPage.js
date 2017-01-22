@@ -25,11 +25,11 @@ class CoursesPage extends Component {
         return (
             <div>
                 <h1>Courses</h1>
+                {showCourseList}
                 <input type="submit"
                     value="Add Course"
                     className="btn btn-primary"
                     onClick={this.redirectToAddCoursePage} />
-                {showCourseList}
             </div>
         );
     }

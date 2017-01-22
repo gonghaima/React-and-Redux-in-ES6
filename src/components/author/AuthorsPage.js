@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Link, browserHistory} from 'react-router';
+import { Link, browserHistory } from 'react-router';
 import { bindActionCreators } from 'redux';
 import * as authorActions from '../../actions/authorActions';
 
@@ -16,10 +16,6 @@ class AuthorsPage extends Component {
         return (
             <div>
                 <h1>Authors</h1>
-                <input type="submit"
-                    value="Add Author"
-                    className="btn btn-primary"
-                    onClick={this.redirectToAddAuthorPage} />
                 <table className="table">
                     <thead>
                         <tr>
@@ -38,6 +34,10 @@ class AuthorsPage extends Component {
                         )}
                     </tbody>
                 </table>
+                <input type="submit"
+                    value="Add Author"
+                    className="btn btn-primary"
+                    onClick={this.redirectToAddAuthorPage} />
             </div>
         );
     }
