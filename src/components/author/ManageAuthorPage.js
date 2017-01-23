@@ -15,12 +15,23 @@ class ManageAuthorPage extends Component {
             authors: Object.assign({}, this.props.authors),
             courses: Object.assign({}, this.props.courses),
             errors: {},
-            saving: false
+            saving: false,
+            editing: false
         };
 
         this.updateAuthorState = this.updateAuthorState.bind(this);
         this.saveAuthor = this.saveAuthor.bind(this);
         this.deleteAuthor = this.deleteAuthor.bind(this);
+    }
+
+    componentDidMount() {
+        this.context.router.setRouteLeaveHook(this.props.route, () => {
+            if (this.state.editing) {
+                return confirm('Unsaved changes, are you sure to leave?');
+            } else {
+                return true;
+            }
+        })
     }
 
     componentWillReceiveProps(nextProps) {
@@ -34,7 +45,7 @@ class ManageAuthorPage extends Component {
         const field = event.target.name;
         let author = this.state.author;
         author[field] = event.target.value;
-        return this.setState({ author: author });
+        return this.setState({ author: author, editing: true});
     }
 
     AuthorFormIsValid() {
@@ -43,7 +54,7 @@ class ManageAuthorPage extends Component {
 
     saveAuthor(event) {
         event.preventDefault();
-        this.setState({ saving: true });
+        this.setState({ saving: true, editing:false});
         this.props.actions.saveAuthor(this.state.author)
             .then(() => this.redirect())
             .catch(error => {
