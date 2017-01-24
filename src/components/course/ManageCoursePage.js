@@ -13,13 +13,25 @@ export class ManageCoursePage extends React.Component {
         this.state = {
             course: Object.assign({}, this.props.course),
             errors: {},
-            saving: false
+            saving: false,
+            editing: false
         };
 
         this.updateCourseState = this.updateCourseState.bind(this);
         this.saveCourse = this.saveCourse.bind(this);
         this.deleteCourse = this.deleteCourse.bind(this);
     }
+
+    componentDidMount() {
+        this.context.router.setRouteLeaveHook(this.props.route, () => {
+            if (this.state.editing) {
+                return confirm('Unsaved changes, are you sure to leave?');
+            } else {
+                return true;
+            }
+        })
+    }
+
 
     componentWillReceiveProps(nextProps) {
         if (this.props.course
@@ -37,7 +49,7 @@ export class ManageCoursePage extends React.Component {
         const field = event.target.name;
         let course = this.state.course;
         course[field] = event.target.value;
-        return this.setState({ course: course });
+        return this.setState({ course: course, editing: true });
     }
 
     CourseFormIsValid() {
@@ -59,7 +71,7 @@ export class ManageCoursePage extends React.Component {
             return;
         }
 
-        this.setState({ saving: true });
+        this.setState({ saving: true, editing: false });
         this.props.actions.saveCourse(this.state.course)
             .then(() => this.redirect())
             .catch(error => {
@@ -123,7 +135,7 @@ function getCourseById(courses, id) {
 function mapStateToProps(state, ownProps) {
     const courseId = ownProps.params.id; // from the path `/course/:id`
     let course = { id: '', watchHref: '', title: '', authorId: '', length: '', category: '' };
-    if (courseId && state.courses.length > 0 && state.courses.findIndex(c=>c.id===courseId)!==-1) {
+    if (courseId && state.courses.length > 0 && state.courses.findIndex(c => c.id === courseId) !== -1) {
         course = getCourseById(state.courses, courseId);
     }
 
