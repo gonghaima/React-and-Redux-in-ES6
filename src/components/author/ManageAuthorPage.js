@@ -49,11 +49,30 @@ class ManageAuthorPage extends Component {
     }
 
     AuthorFormIsValid() {
-        return true;
+        let formIsValid = true;
+        let errors = {};
+
+        if (this.state.author.firstName.length < 3) {
+            errors.firstName = 'First name must be at least 3 characters.';
+            formIsValid = false;
+        }
+
+        if (this.state.author.lastName.length < 3) {
+            errors.lastName = 'Last name must be at least 3 characters.';
+            formIsValid = false;
+        }
+
+        this.setState({ errors: errors });
+        return formIsValid;
     }
 
     saveAuthor(event) {
         event.preventDefault();
+
+        if (!this.AuthorFormIsValid()) {
+            return;
+        }
+
         this.setState({ saving: true, editing:false});
         this.props.actions.saveAuthor(this.state.author)
             .then(() => this.redirect())

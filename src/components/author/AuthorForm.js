@@ -9,12 +9,14 @@ const AuthorForm = ({author, coursesTeaching, onSave, onDelete, onChange, errors
                 name="firstName"
                 label="First Name"
                 value={author.firstName}
-                onChange={onChange} />
+                onChange={onChange} 
+                error={errors.firstName}/>
             <TextInput
                 name="lastName"
                 label="Last Name"
                 value={author.lastName}
-                onChange={onChange} />
+                onChange={onChange} 
+                error={errors.lastName}/>
             <h2>Course teaching</h2>
             {coursesTeaching.map(cs => <p key={cs.id}>{cs.id}</p>)}
             <input
