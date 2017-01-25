@@ -29,7 +29,7 @@ export class ManageCoursePage extends React.Component {
             } else {
                 return true;
             }
-        })
+        });
     }
 
 
@@ -118,7 +118,8 @@ export class ManageCoursePage extends React.Component {
 ManageCoursePage.propTypes = {
     course: PropTypes.object.isRequired,
     authors: PropTypes.array.isRequired,
-    actions: PropTypes.object.isRequired
+    actions: PropTypes.object.isRequired,
+    route: PropTypes.object.isRequired
 };
 
 //Pull in the React Router context so router is available on this.context.router.

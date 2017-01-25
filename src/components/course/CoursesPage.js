@@ -21,7 +21,7 @@ class CoursesPage extends Component {
 
     render() {
         const {courses} = this.props;
-        var showCourseList = (courses.length>0)?<CourseList courses={courses} /> :<span></span>;
+        const showCourseList = (courses.length>0)?<CourseList courses={courses} /> :<span></span>;
         return (
             <div>
                 <h1>Courses</h1>

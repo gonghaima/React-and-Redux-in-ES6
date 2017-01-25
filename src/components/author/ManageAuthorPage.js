@@ -31,7 +31,7 @@ class ManageAuthorPage extends Component {
             } else {
                 return true;
             }
-        })
+        });
     }
 
     componentWillReceiveProps(nextProps) {
@@ -82,11 +82,11 @@ class ManageAuthorPage extends Component {
 
 
     render() {
-        var courseLocal = this.state.courses;
-        let arrayCourse = Object.keys(courseLocal).map((k) => courseLocal[k])
-        let cWithAuthors = arrayCourse.filter(c=>c.authorId===this.state.author.id);
+        let courseLocal = this.state.courses;
+        let arrayCourse = Object.keys(courseLocal).map((k) => courseLocal[k]);
+        let cWithAuthors = arrayCourse.filter(c => c.authorId === this.state.author.id);
         return (
-             <AuthorForm
+            <AuthorForm
                 author={this.state.author}
                 coursesTeaching={cWithAuthors}
                 onSave={this.saveAuthor}
@@ -101,6 +101,9 @@ class ManageAuthorPage extends Component {
 
 ManageAuthorPage.propTypes = {
     author: PropTypes.object.isRequired,
+    authors: PropTypes.array.isRequired,
+    route: PropTypes.object.isRequired,
+    courses: PropTypes.array.isRequired,
     actions: PropTypes.object.isRequired
 };
 

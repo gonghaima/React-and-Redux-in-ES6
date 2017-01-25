@@ -2,9 +2,6 @@ import React from 'react';
 import TextInput from '../common/TextInput';
 
 const AuthorForm = ({author, coursesTeaching, onSave, onDelete, onChange, errors, saving}) => {
-    console.log("numberOfCourses: " + coursesTeaching);
-    // let coursesForTeacher=[];
-    // let courseHtml=<p></p>
     return (
         <form>
             <h1>Manage Author</h1>
@@ -19,7 +16,7 @@ const AuthorForm = ({author, coursesTeaching, onSave, onDelete, onChange, errors
                 value={author.lastName}
                 onChange={onChange} />
             <h2>Course teaching</h2>
-            {coursesTeaching.map(cs => <p>{cs.id}</p>)}
+            {coursesTeaching.map(cs => <p key={cs.id}>{cs.id}</p>)}
             <input
                 type="submit"
                 disabled={saving}
