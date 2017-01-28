@@ -18,6 +18,71 @@ const authors = [
     id: 'dan-wahlin',
     firstName: 'Dan',
     lastName: 'Wahlin'
+  },
+  {
+    id: 'james-smith',
+    firstName: 'James',
+    lastName: 'Smith'
+  },
+  {
+    id: 'maria-garcia',
+    firstName: 'Maria',
+    lastName: 'Garcia'
+  },
+  {
+    id: 'mary-rodriguez',
+    firstName: 'Mary',
+    lastName: 'Rodriguez'
+  },
+  {
+    id: 'aiden-emily',
+    firstName: 'Aiden',
+    lastName: 'Emily'
+  },
+  {
+    id: 'hamza-thompson',
+    firstName: 'Hamza',
+    lastName: 'Thompson'
+  },
+  {
+    id: 'musa-jackson',
+    firstName: 'Musa',
+    lastName: 'Jackson'
+  },
+  {
+    id: 'owen-hill',
+    firstName: 'Owen',
+    lastName: 'Hill'
+  },
+  {
+    id: 'robert-wright',
+    firstName: 'Robert',
+    lastName: 'Wright'
+  },
+  {
+    id: 'syed-walker',
+    firstName: 'Syed',
+    lastName: 'Walker'
+  },
+  {
+    id: 'maxwell-lewis',
+    firstName: 'Maxwell',
+    lastName: 'Lewis'
+  },
+  {
+    id: 'leighton-robinson',
+    firstName: 'Leighton',
+    lastName: 'Robinson'
+  },
+  {
+    id: 'kacper-martinez',
+    firstName: 'Kacper',
+    lastName: 'Martinez'
+  },
+  {
+    id: 'yahya-anderson',
+    firstName: 'Yahya',
+    lastName: 'Anderson'
   }
 ];
 
