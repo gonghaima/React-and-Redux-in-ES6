@@ -7,14 +7,34 @@ import * as authorActions from '../../actions/authorActions';
 class AuthorsPage extends Component {
     constructor(props, context) {
         super(props, context);
+        this.state = {
+            offset: 6
+        };
+        this.dosth = this.dosth.bind(this);
     }
     redirectToAddAuthorPage() {
         browserHistory.push('/author');
     }
+    dosth() {
+        this.setState({ offset: 3 });
+        // this.forceUpdate();
+        // console.log('initialOffset: ' + initialOffset);
+    }
     render() {
         const {authors} = this.props;
+        // let initialOffset = 0;
+        console.log("state.offset in render before return: " + this.state.offset);
+        let localAuthors = authors.slice(this.state.offset, this.state.offset + 3);
+        let prevButton = <li><a href="#" onClick={this.dosth}>Prev</a></li>;
+        let nextButton = <li><a href="#">Next</a></li>;
         return (
-            <div>
+            <div>{this.state.offset}
+                <ul className="pagination">
+                    {prevButton}
+                    <li><a href="#">1</a></li>
+                    <li><a href="#">2</a></li>
+                    {nextButton}
+                </ul>
                 <h1>Authors</h1>
                 <table className="table">
                     <thead>
@@ -25,7 +45,7 @@ class AuthorsPage extends Component {
                         </tr>
                     </thead>
                     <tbody>
-                        {authors.map(author =>
+                        {localAuthors.map(author =>
                             <tr key={author.id}>
                                 <td><Link to={'/author/' + author.id}>{author.id}</Link></td>
                                 <td>{author.firstName}</td>
