@@ -20,6 +20,9 @@ class AuthorsPage extends Component {
         // this.forceUpdate();
         // console.log('initialOffset: ' + initialOffset);
     }
+    setpage(nm){
+        this.setState({ offset: nm });
+    }
     render() {
         const {authors} = this.props;
         // let initialOffset = 0;
@@ -27,12 +30,38 @@ class AuthorsPage extends Component {
         let localAuthors = authors.slice(this.state.offset, this.state.offset + 3);
         let prevButton = <li><a href="#" onClick={this.dosth}>Prev</a></li>;
         let nextButton = <li><a href="#">Next</a></li>;
+        let pageButtons = <li><a href="#">Next</a></li>;
+
+
+
+
+
+        let totalAuthorsNumber = authors.length;
+        let totalPages = Math.ceil(totalAuthorsNumber / 3);
+
+        let totalPagesArray = [];
+        if (totalPagesArray !== []) {
+            for (let i = 1; i <= totalPages; i++) {
+                totalPagesArray.push(i);
+            }
+        }
+        let pageHtml = totalPagesArray.map(s => {
+            // return <li key={s} ><a href="#" onClick={mockClick(event, { s })}>{s}</a></li>;
+            return <li key={s} ><Link to={`/authors/page/${s}`}>{s}</Link></li>;
+        });
+
+
+
+
+
+
+
+
         return (
-            <div>{this.state.offset}
+            <div>{this.state.offset}localAuthors.length:{authors.length}
                 <ul className="pagination">
                     {prevButton}
-                    <li><a href="#">1</a></li>
-                    <li><a href="#">2</a></li>
+                    {pageHtml}
                     {nextButton}
                 </ul>
                 <h1>Authors</h1>
