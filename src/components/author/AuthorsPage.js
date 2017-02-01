@@ -27,7 +27,16 @@ class AuthorsPage extends Component {
         const {authors} = this.props;
         // let initialOffset = 0;
         console.log("state.offset in render before return: " + this.state.offset);
-        let localAuthors = authors.slice(this.state.offset, this.state.offset + 3);
+        console.log("route value: " + this.props.params.pid);
+        let localAuthors={};
+        if(this.props.params.pid){
+            const startCt=this.props.params.pid*3-1;
+            localAuthors= authors.slice(startCt, startCt + 3);
+        }else{
+            localAuthors= authors.slice(this.state.offset, this.state.offset + 3);
+        }
+
+         
         let prevButton = <li><a href="#" onClick={this.dosth}>Prev</a></li>;
         let nextButton = <li><a href="#">Next</a></li>;
         let pageButtons = <li><a href="#">Next</a></li>;
@@ -47,7 +56,7 @@ class AuthorsPage extends Component {
         }
         let pageHtml = totalPagesArray.map(s => {
             // return <li key={s} ><a href="#" onClick={mockClick(event, { s })}>{s}</a></li>;
-            return <li key={s} ><Link to={`/authors/page/${s}`}>{s}</Link></li>;
+            return <li key={s} ><Link to={`/authors/${s}`}>{s}</Link></li>;
         });
 
 
