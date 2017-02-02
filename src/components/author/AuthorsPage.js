@@ -8,7 +8,7 @@ class AuthorsPage extends Component {
     constructor(props, context) {
         super(props, context);
         this.state = {
-            offset: 6
+            offset: 0
         };
         this.dosth = this.dosth.bind(this);
     }
@@ -17,8 +17,6 @@ class AuthorsPage extends Component {
     }
     dosth() {
         this.setState({ offset: 3 });
-        // this.forceUpdate();
-        // console.log('initialOffset: ' + initialOffset);
     }
     setpage(nm){
         this.setState({ offset: nm });
@@ -26,27 +24,31 @@ class AuthorsPage extends Component {
     render() {
         const {authors} = this.props;
         // let initialOffset = 0;
-        console.log("state.offset in render before return: " + this.state.offset);
-        console.log("route value: " + this.props.params.pid);
+        // console.log("state.offset in render before return: " + this.state.offset);
+        // console.log("route value: " + this.props.params.pid);
         let localAuthors={};
+        let totalAuthorsNumber = authors.length;
+        let totalPages = Math.ceil(totalAuthorsNumber / 3);
+        let prevButton = <li><a>Previous</a></li>;
+        let nextButton = <li><Link to={'/authors/2'}>Next</Link></li>;
         if(this.props.params.pid){
-            const startCt=this.props.params.pid*3-1;
+            const startCt=(this.props.params.pid-1)*3;
             localAuthors= authors.slice(startCt, startCt + 3);
+            if(this.props.params.pid>1)prevButton = <li><Link to={`/authors/${this.props.params.pid-1}`}>Previous</Link></li>;
+            console.log(`totalPages:${totalPages}`);
+            console.log(`this.props.params.pid:${this.props.params.pid}`);
+            if(this.props.params.pid<totalPages)
+            nextButton = <li><Link to={`/authors/${Number(this.props.params.pid)+1}`}>Next</Link></li>;
+            else
+            nextButton = <li><a>Next</a></li>;
         }else{
             localAuthors= authors.slice(this.state.offset, this.state.offset + 3);
         }
 
-         
-        let prevButton = <li><a href="#" onClick={this.dosth}>Prev</a></li>;
-        let nextButton = <li><a href="#">Next</a></li>;
-        let pageButtons = <li><a href="#">Next</a></li>;
 
 
 
 
-
-        let totalAuthorsNumber = authors.length;
-        let totalPages = Math.ceil(totalAuthorsNumber / 3);
 
         let totalPagesArray = [];
         if (totalPagesArray !== []) {
@@ -54,8 +56,7 @@ class AuthorsPage extends Component {
                 totalPagesArray.push(i);
             }
         }
-        let pageHtml = totalPagesArray.map(s => {
-            // return <li key={s} ><a href="#" onClick={mockClick(event, { s })}>{s}</a></li>;
+        let pageButtons = totalPagesArray.map(s => {
             return <li key={s} ><Link to={`/authors/${s}`}>{s}</Link></li>;
         });
 
@@ -70,7 +71,7 @@ class AuthorsPage extends Component {
             <div>{this.state.offset}localAuthors.length:{authors.length}
                 <ul className="pagination">
                     {prevButton}
-                    {pageHtml}
+                    {pageButtons}
                     {nextButton}
                 </ul>
                 <h1>Authors</h1>
@@ -102,7 +103,6 @@ class AuthorsPage extends Component {
 }
 
 AuthorsPage.propTypes = {
-    // actions: React.PropTypes.object.isRequired
     authors: React.PropTypes.array.isRequired
 };
 
