@@ -20,7 +20,8 @@ const Header = ({loading, numcourse}) => {
 };
 
 Header.propTypes = {
-    loading: PropTypes.bool.isRequired
+    loading: PropTypes.bool.isRequired,
+    numcourse: PropTypes.number.isRequired
 };
 
 export default Header;

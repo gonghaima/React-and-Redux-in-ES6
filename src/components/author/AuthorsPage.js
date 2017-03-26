@@ -23,32 +23,23 @@ class AuthorsPage extends Component {
     }
     render() {
         const {authors} = this.props;
-        // let initialOffset = 0;
-        // console.log("state.offset in render before return: " + this.state.offset);
-        // console.log("route value: " + this.props.params.pid);
         let localAuthors={};
         let totalAuthorsNumber = authors.length;
         let totalPages = Math.ceil(totalAuthorsNumber / 3);
-        let prevButton = <li><a>Previous</a></li>;
-        let nextButton = <li><Link to={'/authors/2'}>Next</Link></li>;
+        let prevButton = <li className="disabled"><a>Previous</a></li>;
+        let nextButton = <li className="disabled"><Link to={'/authors/2'}>Next</Link></li>;
         if(this.props.params.pid){
             const startCt=(this.props.params.pid-1)*3;
             localAuthors= authors.slice(startCt, startCt + 3);
-            if(this.props.params.pid>1)prevButton = <li><Link to={`/authors/${this.props.params.pid-1}`}>Previous</Link></li>;
-            console.log(`totalPages:${totalPages}`);
-            console.log(`this.props.params.pid:${this.props.params.pid}`);
+            if(this.props.params.pid>1)prevButton = <li className="enabled"><Link to={`/authors/${this.props.params.pid-1}`}>Previous</Link></li>;
             if(this.props.params.pid<totalPages)
-            nextButton = <li><Link to={`/authors/${Number(this.props.params.pid)+1}`}>Next</Link></li>;
+            nextButton = <li className="enabled"><Link to={`/authors/${Number(this.props.params.pid)+1}`}>Next</Link></li>;
             else
-            nextButton = <li><a>Next</a></li>;
+            nextButton = <li className="disabled"><a>Next</a></li>;
         }else{
+            this.props.params.pid=1;
             localAuthors= authors.slice(this.state.offset, this.state.offset + 3);
         }
-
-
-
-
-
 
         let totalPagesArray = [];
         if (totalPagesArray !== []) {
@@ -57,7 +48,11 @@ class AuthorsPage extends Component {
             }
         }
         let pageButtons = totalPagesArray.map(s => {
-            return <li key={s} ><Link to={`/authors/${s}`}>{s}</Link></li>;
+            if(this.props.params.pid==s){
+                return <li key={s} className="active"><Link to={`/authors/${s}`}>{s}</Link></li>;
+            }else{
+                return <li key={s} ><Link to={`/authors/${s}`}>{s}</Link></li>;
+            }
         });
 
 
@@ -103,7 +98,8 @@ class AuthorsPage extends Component {
 }
 
 AuthorsPage.propTypes = {
-    authors: React.PropTypes.array.isRequired
+    authors: React.PropTypes.array.isRequired,
+    params: React.PropTypes.object.isRequired
 };
 
 function mapStateToProps(state, ownProps) {
