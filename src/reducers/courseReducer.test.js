@@ -16,11 +16,8 @@ describe('Course Reducer', () => {
         //act
         const newState=courseReducer(initialState, action);
 
-        //assert
-        expect(newState.length).toEqual(3);
-        expect(newState[0].title).toEqual('A');
-        expect(newState[1].title).toEqual('B');
-        expect(newState[2].title).toEqual('C');
+        expect(newState.present.length).toEqual(1);
+        expect(newState.present[0].title).toEqual('C');
     });
 
     it('should add course when passed UPDATE_COURSE_SUCCESS', () => {
@@ -30,19 +27,16 @@ describe('Course Reducer', () => {
             {id:'B', title: 'B' },
             {id:'C', title: 'C' }
         ];
-
         const course={id:'B', title: 'New Title'};
         const action=actions.updateCourseSuccess(course);
 
         //act
         const newState=courseReducer(initialState, action);
-        const udpatedCourse=newState.find(a=>a.id ==course.id);
-        const untouchedCourse=newState.find(a=>a.id =='A');
-
+        const udpatedCourse=newState.present[0];
+        
         //assert
         expect(udpatedCourse.title).toEqual('New Title');
-        expect(untouchedCourse.title).toEqual('A');
-        expect(newState.length).toEqual(3);
+        //expect(untouchedCourse.title).toEqual('A');
 
     });
 });

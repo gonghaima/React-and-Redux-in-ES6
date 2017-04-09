@@ -55,13 +55,6 @@ class AuthorsPage extends Component {
             }
         });
 
-
-
-
-
-
-
-
         return (
             <div>{this.state.offset}localAuthors.length:{authors.length}
                 <ul className="pagination">
@@ -104,7 +97,7 @@ AuthorsPage.propTypes = {
 
 function mapStateToProps(state, ownProps) {
     return {
-        authors: state.authors
+        authors: state.authors.present
     };
 }
 

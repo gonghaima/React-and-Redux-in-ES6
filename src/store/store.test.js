@@ -17,7 +17,11 @@ describe('Store', function () {
         store.dispatch(action);
 
         //assert
-        const actual = store.getState().courses[0];
+        const actual = store.getState().courses.present[0];
+        // const actualState = store.getState();
+        // debugger;
+        // const actualCourses=actualState.courses;
+        // debugger;
         const expected = {
             title: "Clean Code"
         };

@@ -1,6 +1,7 @@
-import React, { PropTypes } from 'react';
-import { Link, IndexLink } from 'react-router';
+import React, {PropTypes} from 'react';
+import {Link, IndexLink} from 'react-router';
 import LoadingDots from './LoadingDots';
+import UndoRedo from './UndoRedo';
 
 const Header = ({loading, numcourse}) => {
     return (
@@ -13,8 +14,12 @@ const Header = ({loading, numcourse}) => {
             {" | "}
             <Link to="/about" activeClassName="active">About</Link>
             {" | "}
-            {numcourse && <span><strong>Total number of courses: {numcourse}</strong></span>}
-            {loading && <LoadingDots interval={100} dots={20} />}
+            <UndoRedo/> 
+            {" | "}
+            {numcourse && <span>
+                <strong>Total number of courses: {numcourse}</strong>
+            </span>}
+            {loading && <LoadingDots interval={100} dots={20}/>}
         </nav>
     );
 };

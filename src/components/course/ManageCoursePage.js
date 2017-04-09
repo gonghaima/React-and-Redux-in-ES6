@@ -136,13 +136,13 @@ function getCourseById(courses, id) {
 function mapStateToProps(state, ownProps) {
     const courseId = ownProps.params.id; // from the path `/course/:id`
     let course = { id: '', watchHref: '', title: '', authorId: '', length: '', category: '' };
-    if (courseId && state.courses.length > 0 && state.courses.findIndex(c => c.id === courseId) !== -1) {
-        course = getCourseById(state.courses, courseId);
+    if (courseId && state.courses.present.length > 0 && state.courses.present.findIndex(c => c.id === courseId) !== -1) {
+        course = getCourseById(state.courses.present, courseId);
     }
 
     return {
         course: course,
-        authors: authorsFormattedForDropdown(state.authors)
+        authors: authorsFormattedForDropdown(state.authors.present)
     };
 }
 

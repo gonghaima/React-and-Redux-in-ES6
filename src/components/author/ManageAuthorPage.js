@@ -140,13 +140,13 @@ function getAuthorById(authors, id) {
 function mapStateToProps(state, ownProps) {
     const authorId = ownProps.params.id; // from the path `/author/:id`
     let author = { id: '', firstName: '', lastName: '' };
-    if (authorId && state.authors.length > 0 && state.authors.findIndex(c => c.id === authorId) !== -1) {
-        author = getAuthorById(state.authors, authorId);
+    if (authorId && state.authors.present.length > 0 && state.authors.present.findIndex(c => c.id === authorId) !== -1) {
+        author = getAuthorById(state.authors.present, authorId);
     }
 
     return {
         author: author,
-        authors: state.authors,
+        authors: state.authors.present,
         courses: state.courses
     };
 }
